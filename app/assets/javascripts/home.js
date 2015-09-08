@@ -1,3 +1,7 @@
+$(document).ready(function(){
+  $(".new_idea").hide();
+});
 
-
-$("#new_idea_button").click(function(){$(".new_idea").toggle();});
+$(document).ready(function(){
+  $("#new_idea_button").click(function(){$(".new_idea").toggle();});
+});
