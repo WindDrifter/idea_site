@@ -1,6 +1,6 @@
 <h1><%= @idea.title %></h1>
 <hr>
-
+<%= image_tag @idea.avatar.url(:medium) %>
 
 <p>
   <%= @idea.description %>

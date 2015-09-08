@@ -30,8 +30,7 @@ gem 'cancancan'
 gem 'kaminari', '~> 0.16.3'
 gem 'font-awesome-rails'
 gem "bootstrap-sass"
-gem 'font-awesome-rails'
-
+gem "paperclip", "~> 4.3"
 # Use Unicorn as the app server
 # gem 'unicorn'
 

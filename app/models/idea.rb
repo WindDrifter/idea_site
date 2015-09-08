@@ -7,6 +7,11 @@ class Idea < ActiveRecord::Base
   has_many :joined_users, through: :joins, source: :user
   validates :title, presence: {message: "Must be present"}, uniqueness: true
   belongs_to :user
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+
+
   def user_name
     if user
       user.firstname
@@ -23,4 +28,6 @@ class Idea < ActiveRecord::Base
   def members
     joined_users
   end
+
+
 end
