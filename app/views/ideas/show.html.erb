@@ -1,0 +1,51 @@
+<h1><%= @idea.title %></h1>
+<hr>
+
+
+<p>
+  <%= @idea.description %>
+</p>
+<%= @idea.user_name %> on <%= @idea.created_at.strftime("%Y-%b-%d") %>
+
+<hr>
+<%= "Members:" %>
+<hr>
+<% @idea.members.each do|mem| %>
+  <%= mem.firstname %>
+
+<% end %>
+
+<hr>
+
+<h2>New Comments</h2>
+
+<%= form_for [@idea,@comment] do |com| %>
+<div class="form-group">
+  <%= com.label :body %>
+  <%= com.text_area :body, class:"form-control" %>
+
+</div>
+<div class="form-group">
+    <%= com.submit "Create Comment", class: "btn btn-primary"%>
+</div>
+
+<% end %>
+<% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>
+  Answers
+</h2>
+<hr>
+<% @idea.comments.each do |com|  %>
+
+<div class="well">
+  <%= com.body %>   <%= link_to "Delete", idea_comment_path(@idea, com),method: :delete, data: {confirm:"ARE YOU SURE?"}, class: "btn btn-danger", data: {disable_with: "deleting...."} %>
+  <%= com.user_name %> on <%= com.created_at.strftime("%Y-%b-%d") %>
+
+<% end %>

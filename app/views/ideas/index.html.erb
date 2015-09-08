@@ -1,0 +1,52 @@
+<hr>
+<button id='new_idea_button' class="button">New Idea</button>
+
+<%= form_for @idea do |idea| %>
+<div class=" form-group new_idea">
+  <%= idea.label :title %>
+  <%= idea.text_field :title, class:"form-control" %>
+  <%= idea.label :description %>
+  <%= idea.text_area :description, class:"form-control" %>
+
+</div>
+<div class=" form-group new_idea">
+    <%= idea.submit "Create answer", class: "btn btn-primary"%>
+</div>
+
+<% end %>
+
+
+<%= paginate @ideas %>
+
+
+<% @ideas.each do |idea| %>
+<%= link_to idea.title, idea_path(idea) %>
+<%= idea.description %>
+<%= idea.user_name %>
+
+
+
+<% if user_signed_in? && idea.user!=current_user%>
+<%  if !current_user.liked_ideas.include?(idea) %>
+<%= link_to fa_icon("thumbs-o-up"), idea_likes_path(idea), class: "big-icon", title: "like this you wanker", method: :post %>
+<% else %>
+<%= link_to fa_icon("thumbs-up"), idea_like_path(idea,idea.like_for(current_user)), class: "big-icon",title: "Un-like", method: :delete, data: {disable_with: "unliking...."}  %>
+<% end %>
+
+
+
+<% if user_signed_in? && idea.user!=current_user%>
+<%  if !current_user.joined_ideas.include?(idea)%>
+
+ <%= link_to "Join", idea_joins_path(idea),method: :post, class: "btn btn-default" %>
+<% else %>
+<%= link_to "Leave", idea_join_path(idea,idea.join_for(current_user)),method: :delete, class: "btn btn-default" %>
+<% end %>
+<% end %>
+
+
+<% end %>
+
+<hr>
+
+<% end %>

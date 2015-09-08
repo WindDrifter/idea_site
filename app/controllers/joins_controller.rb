@@ -1,0 +1,22 @@
+class JoinsController < ApplicationController
+  def create
+    i = Idea.find params[:idea_id]
+    join = Join.new(idea: i, user: current_user)
+    if join.save
+    redirect_to ideas_path, notice: "300 more likes and you get a SURPRISE"
+    else
+      redirect_to ideas_path, notice: "You already like this. So have a Jarate"
+
+    end
+  end
+  def destroy
+    #@like =
+    join = Join.find params[:id]
+    #redirect_to root_path, alert: "access denied" unless can? :destroy, like
+    idea = Idea.find params[:idea_id]
+    join.destroy
+    redirect_to ideas_path, notice: "Unliked"
+  end
+
+
+end
